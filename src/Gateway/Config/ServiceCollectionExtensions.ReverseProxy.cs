@@ -2,9 +2,9 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication;
 using Yarp.ReverseProxy.Transforms;
 
-namespace Gateway;
+namespace Gateway.Config;
 
-public static class ServiceCollectionExtensions
+public static class ReverseProxyExtensions
 {
     public static void AddReverseProxy(this IServiceCollection services, ConfigurationManager configuration)
     {
@@ -22,9 +22,6 @@ public static class ServiceCollectionExtensions
                     {
                         transformContext.ProxyRequest.Headers.Remove("Cookie");
                         transformContext.ProxyRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                        // var added = transformContext.ProxyRequest.Headers.TryAddWithoutValidation("Authorization",
-                        //     "Bearer " + accessToken);
-                        // Console.WriteLine(added);
                     }
                 });
             });
