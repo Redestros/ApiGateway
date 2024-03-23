@@ -63,10 +63,9 @@ public static class OauthProxyExtension
     public static void AddAuthorizationPolicies(this IServiceCollection services)
     {
         services.AddAuthorizationBuilder()
-            .AddPolicy("custom", policy =>
+            .AddPolicy("authenticatedUser", policy =>
             {
                 policy.RequireAuthenticatedUser();
-                policy.AuthenticationSchemes = [OpenIdConnectDefaults.AuthenticationScheme];
             });
     }
 }
