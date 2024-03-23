@@ -13,13 +13,13 @@ public class AccountController : ControllerBase
 
     [Authorize]
     [HttpGet("/login")]
-    public async Task<IActionResult> Login()
+    public IActionResult Login()
     {
         return Ok("hello");
     }
     
     [HttpGet("/test")]
-    public async Task<IActionResult>  Test()
+    public IActionResult Test()
     {
         return Ok("test");
     }
@@ -34,10 +34,6 @@ public class AccountController : ControllerBase
         await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme, prop);
 
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        // var prop = new AuthenticationProperties
-        // {
-        //     RedirectUri = "/info"
-        // };
     }
 
     [HttpGet("/info")]
