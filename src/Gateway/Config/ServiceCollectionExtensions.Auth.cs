@@ -48,7 +48,7 @@ public static class OauthProxyExtension
 
                 // options.MapInboundClaims = false; // Don't rename claim types
                 // options.CallbackPath = "/signin-oidc"; // Set the callback path
-                options.SignedOutCallbackPath = "/test"; // Set the sign-out callback path
+                options.SignedOutCallbackPath = "/public"; // Set the sign-out callback path
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

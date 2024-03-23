@@ -15,13 +15,13 @@ public class AccountController : ControllerBase
     [HttpGet("/login")]
     public IActionResult Login()
     {
-        return Ok("hello");
+        return RedirectToAction(nameof(GetInfo));
     }
     
-    [HttpGet("/test")]
-    public IActionResult Test()
+    [HttpGet("/public")]
+    public IActionResult Public()
     {
-        return Ok("test");
+        return Ok("Welcome to API Gateway");
     }
     
     [HttpGet("/logout")]
@@ -29,7 +29,7 @@ public class AccountController : ControllerBase
     {
         var prop = new AuthenticationProperties
         {
-            RedirectUri = "/test"
+            RedirectUri = "/public"
         };
         await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme, prop);
 
