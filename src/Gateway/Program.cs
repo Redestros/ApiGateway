@@ -1,4 +1,3 @@
-using Gateway;
 using Gateway.Config;
 
 var builder = WebApplication.CreateBuilder(args);
