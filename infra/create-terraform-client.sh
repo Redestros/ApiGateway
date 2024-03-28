@@ -62,10 +62,10 @@ masterRealmAdminRole=$(get "/realms/master/roles" | jq -r '
     )
     | .[0]
 ')
-masterRealmAdminRoleId=$(echo ${masterRealmAdminRole} | jq -r '.id')
+masterRealmAdminRoleId=$(echo "${masterRealmAdminRole}" | jq -r '.id')
 
 terraformClientServiceAccount=$(get "/realms/master/clients/${KEYCLOAK_CLIENT_ID}/service-account-user")
-terraformClientServiceAccountId=$(echo ${terraformClientServiceAccount} | jq -r '.id')
+terraformClientServiceAccountId=$(echo "${terraformClientServiceAccount}" | jq -r '.id')
 
 serviceAccountAdminRoleMapping=$(jq -n "[{
     clientRole: false,
