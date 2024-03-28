@@ -7,7 +7,6 @@ namespace Gateway;
 public class RedisSessionStore : ITicketStore
 {
     private const string KeyPrefix = "_oauth2_proxy-";
-    // private readonly ILogger<RedisSessionStore> _logger;
     
     private readonly IServiceCollection _services;
 

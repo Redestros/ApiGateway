@@ -8,13 +8,13 @@ builder.Services
     .AddAuthentication()
     .AddJwtBearer(options =>
     {
-        options.Authority = "http://localhost:8080/realms/user-multi-profile-demo";
+        options.Authority = "http://localhost:8080/realms/api-gateway-demo";
         options.RequireHttpsMetadata = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
             ValidAudiences = ["account"],
-            ValidIssuers = ["http://localhost:8080/realms/user-multi-profile-demo"]
+            ValidIssuers = ["http://localhost:8080/realms/api-gateway-demo"]
         };
     });
 

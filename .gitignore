@@ -19,3 +19,5 @@ riderModule.iml
 /_ReSharper.Caches/
 .idea/
 .vs/
+infra/terraform*
+infra/.terraform*
