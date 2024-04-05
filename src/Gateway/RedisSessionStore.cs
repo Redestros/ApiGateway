@@ -9,10 +9,15 @@ public class RedisSessionStore : ITicketStore
     private const string KeyPrefix = "_oauth2_proxy-";
     
     private readonly IServiceCollection _services;
+    private readonly DistributedCacheEntryOptions _cacheEntryOptions;
 
     public RedisSessionStore(IServiceCollection services)
     {
         _services = services;
+        _cacheEntryOptions = new DistributedCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60)
+        };
     }
 
     public async Task<string> StoreAsync(AuthenticationTicket ticket)
@@ -26,7 +31,7 @@ public class RedisSessionStore : ITicketStore
         var key = KeyPrefix + Guid.NewGuid();
 
         var serializedTicket = TicketSerializer.Default.Serialize(ticket);
-        await distributedCache.SetAsync(key, serializedTicket);
+        await distributedCache.SetAsync(key, serializedTicket, _cacheEntryOptions);
         
         logger.LogInformation("Storing auth ticket with key {authTicketKey}", key);
         return key;
@@ -43,7 +48,7 @@ public class RedisSessionStore : ITicketStore
         logger.LogInformation("Renew ticket with key {authTicketKey} and schema {authSchema}", key,
             ticket.AuthenticationScheme);
         
-        await distributedCache.SetAsync(key, TicketSerializer.Default.Serialize(ticket));
+        await distributedCache.SetAsync(key, TicketSerializer.Default.Serialize(ticket), _cacheEntryOptions);
     }
 
     public async Task<AuthenticationTicket?> RetrieveAsync(string key)
