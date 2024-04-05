@@ -14,7 +14,8 @@ builder.Services
         {
             ValidateIssuerSigningKey = true,
             ValidAudiences = ["account"],
-            ValidIssuers = ["http://localhost:8080/realms/api-gateway-demo"]
+            ValidIssuers = ["http://localhost:8080/realms/api-gateway-demo"],
+            ClockSkew = TimeSpan.Zero
         };
     });
 
