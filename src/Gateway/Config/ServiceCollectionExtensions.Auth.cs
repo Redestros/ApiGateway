@@ -21,7 +21,7 @@ public static class OauthProxyExtension
             {
                 //Sets the cookie name and max-age, so the cookie is invalidated.
                 cookie.Cookie.Name = "keycloak.cookie";
-                cookie.Cookie.MaxAge = TimeSpan.FromMinutes(60);
+                cookie.Cookie.MaxAge = TimeSpan.FromMinutes(30);
                 cookie.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                 cookie.SlidingExpiration = true;
                 cookie.SessionStore = new RedisSessionStore(services);
