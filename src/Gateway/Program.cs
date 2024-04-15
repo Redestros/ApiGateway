@@ -1,8 +1,10 @@
 using Gateway.Config;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
