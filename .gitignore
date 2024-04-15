@@ -21,3 +21,4 @@ riderModule.iml
 .vs/
 infra/terraform*
 infra/.terraform*
+log*
