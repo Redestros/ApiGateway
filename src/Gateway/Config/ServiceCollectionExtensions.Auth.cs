@@ -9,7 +9,10 @@ public static class OauthProxyExtension
 {
     public static void AddOAuthProxy(this IServiceCollection services)
     {
+        services.AddSingleton<CookieOidcRefresher>();
+        
         var proxyOptions = services.GetOptions<OAuthProxyOptions>(OAuthProxyOptions.SectionName);
+        
         services.AddAuthentication(options =>
             {
                 //Sets cookie authentication scheme
@@ -21,9 +24,8 @@ public static class OauthProxyExtension
             {
                 //Sets the cookie name and max-age, so the cookie is invalidated.
                 cookie.Cookie.Name = "keycloak.cookie";
-                cookie.Cookie.MaxAge = TimeSpan.FromMinutes(30);
                 cookie.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                cookie.SlidingExpiration = true;
+                // cookie.SlidingExpiration = true;
                 cookie.SessionStore = new RedisSessionStore(services);
             })
             .AddOpenIdConnect(options =>
@@ -45,6 +47,8 @@ public static class OauthProxyExtension
                 options.GetClaimsFromUserInfoEndpoint = true;
                 options.Scope.Add("openid");
                 options.Scope.Add("profile");
+                // Request a refresh_token.
+                options.Scope.Add(OpenIdConnectScope.OfflineAccess);
 
                 // options.MapInboundClaims = false; // Don't rename claim types
                 // options.CallbackPath = "/signin-oidc"; // Set the callback path
@@ -52,20 +56,25 @@ public static class OauthProxyExtension
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
+                    ValidateTokenReplay = true,
                     NameClaimType = "preferred_username",
                     RoleClaimType = "roles"
                 };
 
                 options.SaveTokens = true;
             });
+        
+        services.AddOptions<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme)
+            .Configure<CookieOidcRefresher>((cookieOptions, refresher) =>
+            {
+                cookieOptions.Events.OnValidatePrincipal = context =>
+                    refresher.ValidateOrRefreshCookieAsync(context, OpenIdConnectDefaults.AuthenticationScheme);
+            });
     }
 
     public static void AddAuthorizationPolicies(this IServiceCollection services)
     {
         services.AddAuthorizationBuilder()
-            .AddPolicy("authenticatedUser", policy =>
-            {
-                policy.RequireAuthenticatedUser();
-            });
+            .AddPolicy("authenticatedUser", policy => { policy.RequireAuthenticatedUser(); });
     }
 }
