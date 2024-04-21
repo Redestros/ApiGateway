@@ -1,6 +1,7 @@
 ## Basic Api Gateway using DotNet, Yarp, Redis and Keycloak
 
 This solution is an API Gateway implemented using YARP as a Reverse proxy, Keycloak as an Identity Provider, and Redis for session storage.
+(You can find more details in this [artcile](https://medium.com/@ahmedmohamedelahmar/implement-api-gateway-with-token-handler-pattern-using-net-redis-and-keycloak-38250bfbd733))
 
 ### Solution structure
 
