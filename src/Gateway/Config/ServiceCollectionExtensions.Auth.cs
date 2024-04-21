@@ -47,8 +47,6 @@ public static class OauthProxyExtension
                 options.GetClaimsFromUserInfoEndpoint = true;
                 options.Scope.Add("openid");
                 options.Scope.Add("profile");
-                // Request a refresh_token.
-                options.Scope.Add(OpenIdConnectScope.OfflineAccess);
 
                 // options.MapInboundClaims = false; // Don't rename claim types
                 // options.CallbackPath = "/signin-oidc"; // Set the callback path
