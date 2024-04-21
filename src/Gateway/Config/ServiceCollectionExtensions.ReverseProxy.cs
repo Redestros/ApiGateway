@@ -21,7 +21,8 @@ public static class ReverseProxyExtensions
                     if (accessToken != null)
                     {
                         transformContext.ProxyRequest.Headers.Remove("Cookie");
-                        transformContext.ProxyRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                        transformContext.ProxyRequest.Headers.Authorization =
+                            new AuthenticationHeaderValue("Bearer", accessToken);
                     }
                 });
             });
