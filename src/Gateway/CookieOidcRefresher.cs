@@ -83,7 +83,7 @@ internal sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> 
 
         var validatedIdToken = JwtSecurityTokenConverter.Convert(validationResult.SecurityToken as JsonWebToken);
         validatedIdToken.Payload["nonce"] = null;
-        _oidcTokenValidator.ValidateTokenResponse(new()
+        _oidcTokenValidator.ValidateTokenResponse(new OpenIdConnectProtocolValidationContext
         {
             ProtocolMessage = message,
             ClientId = oidcOptions.ClientId,
