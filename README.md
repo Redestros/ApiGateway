@@ -19,7 +19,7 @@ This solution is an API Gateway implemented using YARP as a Reverse proxy, Keycl
   docker compose up -d
   chmod +x ./create-terraform-client.sh
   terraform init
-  terraform appy
+  terraform apply
   ```
 2. Run Api Gateway
   ```bash
@@ -28,8 +28,8 @@ This solution is an API Gateway implemented using YARP as a Reverse proxy, Keycl
   ```
 3. Run microservice (in another terminal)
   ```bash
-  $ cd ../src/ResourceServer
-  $ dotnet run
+  cd ../src/ResourceServer
+  dotnet run
   ```
 ## Demo
 You can check projects swaggers:
