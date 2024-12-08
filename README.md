@@ -34,7 +34,7 @@ This solution is an API Gateway implemented using YARP as a Reverse proxy, Keycl
 ## Demo
 You can check projects swaggers:
 * Api Gateway: https://localhost:7140/swagger/index.html 
-* Microservice: https://localhost:7140/swagger/index.html
+* Microservice: https://localhost:7285/swagger/index.html
 
 When you hit the weather forecast endpoint directly from the microservice, you shall receive
 a 401 unauthorized error.
