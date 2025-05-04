@@ -1,0 +1,14 @@
+{
+  "/account/*": {
+    "target": "http://localhost:5229",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/weatherforecast/*": {
+    "target": "http://localhost:5229",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

@@ -17,17 +17,25 @@ public class AccountController : ControllerBase
         return Ok("Welcome to API Gateway");
     }
 
-    [Authorize]
+    [AllowAnonymous]
     [HttpGet("login")]
     public IActionResult Login()
     {
-        return RedirectToAction(nameof(GetInfo));
+        // Challenge triggers the OIDC redirect flow
+        return Challenge(new AuthenticationProperties
+        {
+            RedirectUri = "/account/info" // or wherever you want to land after login
+        }, OpenIdConnectDefaults.AuthenticationScheme);
     }
     
+    [Authorize]
     [HttpGet("info")]
     public IActionResult GetInfo()
     {
-        var claims = HttpContext.User.Claims.Select(x => new { x.Type, x.Value}).ToList();
+        var claims = HttpContext.User.Claims
+            .Select(x => new { x.Type, x.Value })
+            .ToList();
+
         return Ok(claims);
     }
     

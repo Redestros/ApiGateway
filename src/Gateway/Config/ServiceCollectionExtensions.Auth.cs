@@ -58,7 +58,7 @@ public static class OauthProxyExtension
                     NameClaimType = "preferred_username",
                     RoleClaimType = "roles"
                 };
-
+                options.CallbackPath= "/signin-oidc";
                 options.SaveTokens = true;
             });
         
