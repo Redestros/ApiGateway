@@ -22,3 +22,4 @@ riderModule.iml
 infra/terraform*
 infra/.terraform*
 log*
+.DS_Store
